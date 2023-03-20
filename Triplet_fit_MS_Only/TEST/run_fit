@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Get the path to this very script
+PATH2HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd . >/dev/null 2>&1 && pwd )"
+
+# Make directories for output
+mkdir -p ${PATH2HOME}/out_sim
+
+# Execute the script
+${PATH2HOME}/bin/sim ${PATH2HOME}/out_gen/outfile.root ${PATH2HOME}/out_sim/outfile.root 
+
+> ${PATH2HOME}/out_sim/outfile.root

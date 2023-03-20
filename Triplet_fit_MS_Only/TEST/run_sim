@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Get the path to this very script
+PATH2HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd . >/dev/null 2>&1 && pwd )"
+
+echo "[INFO] In simulation step"
+
+#==================================
+#
+# 1. Generate the data
+#
+#==================================
+
+# Make directories for output
+mkdir -p ${PATH2HOME}/out_sim
+
+echo "[INFO] Start simulation"
+
+# Execute the script
+${PATH2HOME}/bin/sim ${PATH2HOME}/out_gen/outfile.root ${PATH2HOME}/out_sim/outfile.root 
+
+#==================================
+#
+# 2. Visualize data
+#
+#==================================
+
+echo "[INFO] Start visulaizing simulated data"
+
+# Make directories for output
+mkdir -p ${PATH2HOME}/fig/sim/
+
+# Call plotting script
+${PATH2HOME}/python/plt_h1.py --fin ${PATH2HOME}/out_sim/outfile.root \
+                              --fout  ${PATH2HOME}/fig/sim/evt_id.pdf \
+	                      --tree TT_Tracks \
+			      --config "Evt_ID,20,0,20"
+
+# Call plotting script
+${PATH2HOME}/python/plt_h1.py --fin ${PATH2HOME}/out_sim/outfile.root \
+                              --fout  ${PATH2HOME}/fig/sim/Num_TracksXZ_geninfo.pdf \
+	                      --tree TT_Tracks \
+			      --config "Num_TracksXZ_geninfo,5,0,5"
+
+
+
+

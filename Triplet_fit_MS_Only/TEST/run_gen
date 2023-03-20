@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Get the path to this very script
+PATH2HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd . >/dev/null 2>&1 && pwd )"
+
+echo "[INFO] In generator script"
+
+#==================================
+#
+# 1. Generate the data
+#
+#==================================
+
+echo "[INFO] Start generating data"
+
+# Make directories for output
+mkdir -p ${PATH2HOME}/out_gen
+
+# Execute the script
+${PATH2HOME}/bin/gen ${PATH2HOME}/out_gen/outfile.root
+
+#> ${PATH2HOME}/out_gen/outfile.root
+
+#==================================
+#
+# 2. Visualize data
+#
+#==================================
+
+echo "[INFO] Start visulaizing generated data"
+
+# Make directories for output
+mkdir -p ${PATH2HOME}/fig/gen/
+
+# Call plotting script
+${PATH2HOME}/python/plt_h1.py --fin ${PATH2HOME}/out_gen/outfile.root \
+                              --fout  ${PATH2HOME}/fig/gen/evt_id.pdf \
+	                      --tree TT_Tracks \
+			      --config "Evt_ID,10,0,100"
+
+# Call plotting script
+${PATH2HOME}/python/plt_h1.py --fin ${PATH2HOME}/out_gen/outfile.root \
+                              --fout  ${PATH2HOME}/fig/gen/Num_TracksXZ_geninfo.pdf \
+	                      --tree TT_Tracks \
+			      --config "Num_TracksXZ_geninfo,100,0,10"
+
+
+
+

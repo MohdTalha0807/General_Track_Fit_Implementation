@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Get the path to this very script
+PATH2HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd . >/dev/null 2>&1 && pwd )"
+
+# 1. Generare data
+${PATH2HOME}/run_gen
+
+# 2. Simulate
+${PATH2HOME}/run_sim
+
+# 3. Analyze
+#${PATH2HOME}/run_fit
